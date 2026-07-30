@@ -1,182 +1,112 @@
-# YouScroll Privacy Policy
+# YouScroll privacy policy
 
-- **Effective date:** July 31, 2026
-- **Applies to:** YouScroll 0.4.0 and later
-- **Extension operator:** Sagrid, operated by Abhishek Singh
-- **Privacy and support contact:** <codecube99@gmail.com>
-
-YouScroll is a local-first Chrome extension that rearranges the YouTube watch
-page so the comments can be read beside the video instead of below it. This
-policy describes the data the extension handles, why it handles it, where it
-is stored, and the choices available to users.
-
-In this policy, "YouScroll," "we," and "us" refer to the extension operator
-identified above.
+**Last updated:** 31 July 2026 · **Applies to:** YouScroll 0.4.0
 
 ## Summary
 
-- YouScroll does not require an account and has no sign-in.
-- YouScroll has no developer-operated data server, analytics, advertising,
-  tracking, or telemetry.
-- YouScroll makes no network requests of its own and contains no remote code.
-- The only thing YouScroll stores is a small settings object: which features
-  are switched on and which tab the panel opens on.
-- YouScroll does not store, transmit, or log page content. It does not record
-  which videos you watch, what the comments say, or where you have been.
-- YouScroll runs on `https://www.youtube.com` and has access to no other site.
-- The panel YouScroll builds is part of the ordinary page, so scripts on that
-  page can see it, as they can see the rest of the page.
+YouScroll rearranges the YouTube page you are already looking at. It has no
+account, makes no network requests of its own, and does not collect user data.
 
-## Data YouScroll handles
+There is no server. There is nowhere for your data to go.
 
-| Data                                | How it is used                                                                                                                                                                                                   |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Feature settings                    | Two on/off switches, one per feature, so the extension does what you last asked it to. Stored.                                                                                                                   |
-| Default tab preference              | Whether the panel opens on Comments or Up Next. Stored.                                                                                                                                                          |
-| Positions of YouTube's own elements | Read in memory while a feature is active, so the comments and recommendations containers can be moved into the panel and returned to their exact original position when the feature is switched off. Not stored. |
-| The comment count shown on the page | Read as text to label the panel's tab, on the same page it was read from. Not stored, and never sent anywhere.                                                                                                   |
+## Chrome Web Store data-use disclosure
 
-That is the complete list.
+YouScroll declares no collected user-data categories in the Chrome Web Store
+Privacy practices form.
 
-YouScroll does not read or store the text of comments, video titles, channel
-names, descriptions, search queries, watch history, form entries, passwords,
-authentication cookies, financial information, health information, or personal
-communications. It does not build an activity log. It observes scroll position
-and window size only to keep the panel the right height and to let YouTube's
-own lazy loading keep working inside it, and it retains neither.
+- **Website content is not collected.** YouScroll locates and moves YouTube's
+  existing comments and recommendations containers without reading, copying,
+  storing, logging, or transmitting their contents.
+- **User activity is not collected.** Click, keyboard, and scroll events are
+  handled only as they occur so the visible controls and independent scrolling
+  work. Those interactions are not recorded, measured, profiled, or
+  transmitted.
+- **Settings are not collected by the developer.** The two preferences
+  described below are stored through Chrome's own storage API. The developer
+  has no server and receives no copy of them.
 
-Nothing YouScroll handles is transmitted to the extension operator, to an
-analytics provider, to an advertiser, or to a data broker. There is no server
-on the other end of any request, because YouScroll makes none.
+## What YouScroll stores
 
-## Where data is stored
+One settings object in `chrome.storage.sync`:
 
-The settings object is stored under a single key in `chrome.storage.sync`,
-Chrome's own extension storage.
+- which features are switched on;
+- which tab the right-hand column opens on.
 
-One consequence is worth stating plainly rather than rounding off: if you are
-signed into Chrome, `chrome.storage.sync` means that object travels through
-Google's sync service between your own browsers, exactly as any other
-extension setting does. It contains no identifiers and nothing about what you
-watch — it is a pair of on/off switches and a tab preference — and it never
-reaches the extension operator. Google's handling of Chrome sync is covered by
-[Google's privacy policy](https://policies.google.com/privacy), not this one.
+That is the complete list. If you are signed into Chrome, that object syncs
+between your own browsers through Google's sync service, as any extension
+setting does. It contains no identifiers and nothing about what you watch.
 
-If you are not signed into Chrome, the settings stay on the device.
+## What YouScroll does not do
 
-## Visibility to the page
+- No accounts, sign-in, or user identifiers.
+- No analytics, telemetry, crash reporting, or usage measurement.
+- No click, keyboard, pointer, or scroll logging.
+- No advertising, ad SDKs, or tracking of any kind.
+- No network requests. YouScroll contacts no server, including any operated by
+  its developer. It contains no remote code.
+- No selling, sharing, or transferring of data to anyone, because there is no
+  data to transfer.
 
-YouScroll works by moving YouTube's own comments and recommendations
-containers into a panel it adds to the page, and by adding one button to the
-player's control bar. Those elements are ordinary parts of the page's DOM.
+## Page content
 
-This means scripts running on that page, including YouTube's own, can see the
-elements YouScroll adds and the fact that it has rearranged the layout. That
-is inherent to changing a page you are looking at rather than a choice about
-your data: YouScroll passes no information to those scripts, and the content it
-moves was already on the page and already visible to them.
+YouScroll moves elements YouTube has already rendered — the comments list and
+the recommendations list — from one part of the page to another. It reads
+their position in the document in order to move them and to put them back.
 
-YouScroll runs in Chrome's isolated content-script world and does not expose
-an API, a global variable, or a message channel that page scripts can call.
+It does not read, copy, store, transmit, or log the content of those elements,
+and there is no exception to that. No comment text, comment count, video title,
+channel name, search query, or watch history is read by this extension, let
+alone recorded anywhere. The tab labels it adds say "Comments" and "Up Next"
+and are fixed strings, not anything taken off the page.
+
+## The pop-out player
+
+The pop-out button hands the video you are already watching to your browser's
+built-in Picture-in-Picture window. The video never leaves the browser, no
+extra permission is involved, and nothing about it is recorded or sent
+anywhere. YouScroll only asks the browser to open and close that window; the
+window itself is Chrome's, not this extension's.
 
 ## Permissions and why they exist
 
-| Permission                  | Why it is needed                                                                                                                   |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `storage`                   | Saves the settings object described above, and lets an open YouTube tab notice immediately when you change a setting in the popup. |
-| `https://www.youtube.com/*` | Lets the content script run on YouTube watch pages, which is where the elements it rearranges are.                                 |
+| Permission                  | Why                                                                                             |
+| --------------------------- | ----------------------------------------------------------------------------------------------- |
+| `storage`                   | Saves the settings object described above.                                                      |
+| `https://www.youtube.com/*` | Lets the content script run on YouTube watch pages. This is the only site YouScroll can access. |
 
-YouScroll requests no `tabs`, `scripting`, `webRequest`, `history`, `cookies`,
-`clipboardRead`, or `<all_urls>` permission, and no optional permissions. It
-has no background service worker.
+YouScroll requests no `tabs`, `scripting`, `webRequest`, `history`,
+`cookies`, or `<all_urls>` permission, and no optional permissions. The build
+fails if any host pattern in the manifest escapes `www.youtube.com`, so the
+scope cannot widen by accident.
 
-The host scope is enforced by the build, which fails if any host pattern in
-the manifest escapes `https://www.youtube.com`. The narrow scope is the whole
-privacy argument, so it is checked mechanically rather than by review.
+## What YouTube sees
 
-## How data is used
+YouScroll changes nothing about your relationship with YouTube. YouTube
+continues to load, render, and log your activity exactly as it would without
+the extension — including loading further pages of comments as you scroll,
+which is YouTube's own code doing its own thing. Google's handling of that
+activity is covered by
+[Google's privacy policy](https://policies.google.com/privacy), not this one.
 
-The settings object is used for one thing: deciding which features are active
-and how the panel opens. It is not used to profile you, is not combined with
-anything else, and is not used for any purpose other than the extension's
-disclosed single purpose.
+## Local visibility
 
-## Sharing and disclosure
-
-YouScroll does not sell, rent, share, or transfer user data to anyone. There
-is no data to transfer: nothing leaves your browser as a result of using the
-extension.
-
-The operator may disclose information if required by law, but holds no
-server-side copy of anything and therefore has nothing about you to disclose.
-
-## Retention and deletion
-
-Settings remain in Chrome's extension storage until you change them, clear the
-extension's data, reset the browser profile, or uninstall the extension.
-Chrome removes the stored settings when YouScroll is uninstalled.
-
-Switching a feature off in the popup immediately reverts the page and stops
-the extension from acting on it, in tabs that are already open, without a
-reload.
-
-Because there is no server-side copy, the extension operator cannot retrieve,
-export, correct, or delete your local extension data on your behalf. You have
-direct and complete control over it through Chrome.
-
-## Security
-
-YouScroll packages all of its executable code with the extension and executes
-no remotely hosted code. It makes no network requests, so there is no
-transmission to intercept. The data it stores is a pair of booleans and a
-string, and it is subject to Chrome, browser-profile, operating-system, and
-device security controls.
-
-The panel YouScroll builds is deliberately rendered into the current page and
-is not isolated from scripts on that page, as described under **Visibility to
-the page**.
-
-## External services and links
-
-YouScroll contacts no external service. The extension's store listing links to
-this policy and to its support page; if you open one, the operator of that
-site processes the visit under its own policy.
-
-YouTube continues to load, render, and log your activity exactly as it would
-without the extension, including loading further pages of comments as you
-scroll, which is YouTube's own code doing its own work inside the panel.
-Google's handling of that activity is covered by
-[Google's privacy policy](https://policies.google.com/privacy).
-
-The Chrome Web Store and the Chrome browser may separately process
-installation, update, diagnostic, or store activity under Google's policies.
-That processing is not performed by YouScroll.
+The elements YouScroll moves stay in the ordinary page DOM, which means other
+scripts running on that page can see them — exactly as they could before.
+YouScroll adds no isolation and removes none.
 
 ## Children
 
-YouScroll is a layout utility for the YouTube watch page. It is not directed
-to children under 13, or under the minimum age required by local law, and it
-does not knowingly request or collect personal information from children. It
-collects nothing from anyone, regardless of age.
+YouScroll is a layout utility with no content of its own, no account, and no
+data collection. It is not directed at children and collects nothing from
+anyone regardless of age.
 
-## Chrome Web Store Limited Use
+## Changes
 
-YouScroll's use of information received from Google APIs adheres to the Chrome
-Web Store User Data Policy, including the Limited Use requirements. YouScroll
-limits its use of user data to providing its disclosed single purpose and does
-not use or transfer user data for personalized advertising, for unrelated
-purposes, or for creditworthiness or lending decisions.
-
-## Changes to this policy
-
-If YouScroll's data practices change, this policy, the Chrome Web Store
-privacy disclosures, and any required in-product disclosure will be updated
-before the changed practice begins. Any change that widened data handling
-would require a manifest permission change, which Chrome shows you at install
-or update time. The effective date at the top identifies the current version.
+Material changes to this policy will be published with a new version of the
+extension and a new date at the top of this file. Any change that widened data
+handling would require a manifest permission change, which is visible to you
+at install or update time.
 
 ## Contact
 
-Questions, privacy requests, and security reports should be sent to:
-
-<codecube99@gmail.com>
+Open an issue on the project's repository.
