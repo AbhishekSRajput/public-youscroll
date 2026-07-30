@@ -70,6 +70,7 @@ cannot widen by accident.
 - [Support and issue reporting](ISSUES.md)
 - [Privacy policy](PRIVACY.md)
 - [Third-party notices](THIRD_PARTY_NOTICES.md)
+- [License](LICENSE)
 
 ## Contact
 
