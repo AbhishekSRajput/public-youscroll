@@ -3,8 +3,8 @@
 Get help with YouScroll, report a bug, or suggest an improvement through
 GitHub Issues:
 
-- [Search existing issues](https://github.com/AbhishekSRajput/youscroll-docs/issues)
-- [Open a new issue](https://github.com/AbhishekSRajput/youscroll-docs/issues/new)
+- [Search existing issues](https://github.com/AbhishekSRajput/public-youscroll/issues)
+- [Open a new issue](https://github.com/AbhishekSRajput/public-youscroll/issues/new)
 
 You can also contact support at <codecube99@gmail.com>.
 
