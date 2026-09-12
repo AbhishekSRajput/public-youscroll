@@ -17,11 +17,13 @@ each of them looks like the extension has stopped working:
 - **Theater mode and fullscreen.** YouTube reflows the page into one wide
   column, which leaves the panel nowhere sensible to live, so it steps aside.
   Press `t` or leave fullscreen and it comes back.
-- **Narrow windows.** Below YouTube's own two-column breakpoint, the right
-  column moves underneath the video and a full-height panel makes no sense.
-  Widen the window past roughly 1020 pixels.
-- **Videos with comments disabled**, and live streams, which show a chat panel
-  instead of comments.
+- **Narrow windows.** Below 1025 pixels wide, YouTube moves the right column
+  underneath the video and a full-height panel makes no sense, so YouScroll
+  steps aside completely. Widen the window and it comes back.
+- **Videos with comments disabled**, and live streams, premieres, and chat
+  replays, which show a chat panel in the right column instead of comments.
+  A mix or playlist is _not_ one of these — the panel should appear there,
+  above YouTube's own queue.
 
 If none of those apply, reload the page and try again before reporting it.
 

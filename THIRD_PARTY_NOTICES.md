@@ -6,26 +6,68 @@ distributed browser extension built from the committed lockfile. Build-time
 and test-only tools that emit no distributed code — TypeScript, ESLint,
 Prettier, Vitest, PostCSS, and their dependencies — are not listed.
 
-Everything below is bundled into the settings popup. **YouScroll's content
-script, the part that runs on the YouTube page itself, bundles none of it**:
-it is framework-free and depends only on code in this project.
+The settings popup bundles its React UI dependencies. The content script
+bundles `gifenc` for local GIF optimization and an adapted pico face-detector
+fallback. An extension-owned worker bundles MediaPipe and its local model and
+WebAssembly runtime. Nothing is downloaded at runtime.
 
 ## Bundled runtime packages
 
-| Package                | Version | Distributed contribution       | License | Source                                                            |
-| ---------------------- | ------- | ------------------------------ | ------- | ----------------------------------------------------------------- |
-| React                  | 18.3.1  | Settings popup UI              | MIT     | https://github.com/facebook/react/tree/v18.3.1/packages/react     |
-| React DOM              | 18.3.1  | Settings popup rendering       | MIT     | https://github.com/facebook/react/tree/v18.3.1/packages/react-dom |
-| @radix-ui/react-switch | 1.3.7   | Accessible toggle in the popup | MIT     | https://github.com/radix-ui/primitives                            |
-| clsx                   | 2.1.1   | Conditional class names        | MIT     | https://github.com/lukeed/clsx/tree/v2.1.1                        |
-| tailwind-merge         | 2.6.1   | Tailwind class deduplication   | MIT     | https://github.com/dcastil/tailwind-merge/tree/v2.6.1             |
-| lucide-react           | 0.462.0 | Popup icon                     | ISC     | https://github.com/lucide-icons/lucide                            |
+| Package                 | Version | Distributed contribution            | License    | Source                                                            |
+| ----------------------- | ------- | ----------------------------------- | ---------- | ----------------------------------------------------------------- |
+| React                   | 18.3.1  | Settings popup UI                   | MIT        | https://github.com/facebook/react/tree/v18.3.1/packages/react     |
+| React DOM               | 18.3.1  | Settings popup rendering            | MIT        | https://github.com/facebook/react/tree/v18.3.1/packages/react-dom |
+| @radix-ui/react-slot    | 1.3.3   | Popup component composition         | MIT        | https://github.com/radix-ui/primitives                            |
+| @radix-ui/react-switch  | 1.3.7   | Accessible toggle in the popup      | MIT        | https://github.com/radix-ui/primitives                            |
+| clsx                    | 2.1.1   | Conditional class names             | MIT        | https://github.com/lukeed/clsx/tree/v2.1.1                        |
+| tailwind-merge          | 2.6.1   | Tailwind class deduplication        | MIT        | https://github.com/dcastil/tailwind-merge/tree/v2.6.1             |
+| lucide-react            | 0.462.0 | Popup icon                          | ISC        | https://github.com/lucide-icons/lucide                            |
+| gifenc                  | 1.0.3   | Local lossless GIF re-encoding      | MIT        | https://github.com/mattdesl/gifenc                                |
+| @mediapipe/tasks-vision | 0.10.32 | Local face-landmark worker and WASM | Apache-2.0 | https://github.com/google-ai-edge/mediapipe                       |
 
 `@radix-ui/react-switch` brings with it the Radix primitives it is built from
 — `@radix-ui/primitive`, `react-compose-refs`, `react-context`,
 `react-primitive`, `react-use-controllable-state`, `react-use-effect-event`,
 `react-use-layout-effect`, and `react-use-size`. All are published by the same
 project under the MIT License and the same copyright notice reproduced below.
+
+`gifenc` runs only after a user chooses a GIF. It re-encodes the file locally
+when that can produce a smaller lossless result; no media is sent away.
+
+## Local face detection and model
+
+The primary detector uses `@mediapipe/tasks-vision` 0.10.32, copyright Google
+LLC and the MediaPipe authors, under the Apache License 2.0. Its JavaScript
+worker, WASM loader and WASM binary are packaged locally. The unmodified loader
+and binary in the extension's `face-models/wasm/` directory come from that npm
+package.
+
+The packaged `face_landmarker.task` is Google's
+[Face Landmarker float16 model, version 1](https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task),
+SHA-256 `64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff`.
+The bundle combines face detection, facial landmarks and blendshape models;
+YouScroll disables blendshape output. The upstream
+[Face Landmarker overview](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker)
+links the relevant model cards and Apache License 2.0 terms. These links record
+provenance; the extension does not download code or models at runtime.
+
+The complete Apache License 2.0 is included as `LICENSE` in the distributed
+extension.
+
+### Local JavaScript fallback
+
+The content script includes a TypeScript adaptation of the cascade evaluator
+from [pico.js](https://github.com/nenadmarkus/picojs/tree/afffa50ec4134a47005f2cbf8112eaa69f65f37e)
+by Nenad Markus and the `facefinder` cascade from
+[pico](https://github.com/nenadmarkus/pico/tree/7d550c78b2c31a4e1dfc5bcdfe9da013297b5cc8),
+both under the MIT License. The decoded cascade has SHA-256
+`d8014993e7298c7b1865d1f8b855d6dbf4ec5c808bf879e2091ab6837abf90cd`.
+Both are bundled with the extension and never downloaded while watching. No
+upstream webcam code is included.
+
+Reference: N. Markus, M. Frljak, I. S. Pandzic, J. Ahlberg and R. Forchheimer,
+"Object Detection with Pixel Intensity Comparisons Organized in Decision
+Trees," [arXiv:1305.4537](https://arxiv.org/abs/1305.4537).
 
 ## Build-generated runtime and CSS
 
@@ -42,8 +84,8 @@ distributed extension and are provided under the MIT License:
 ## MIT License
 
 Applies to React, React DOM, the Radix UI primitives, clsx, tailwind-merge,
-Vite, @crxjs/vite-plugin, Tailwind CSS, and tailwindcss-animate, each under
-its own copyright notice:
+gifenc, the pico adaptation and cascade, Vite, @crxjs/vite-plugin, Tailwind CSS,
+and tailwindcss-animate, each under its own copyright notice:
 
 Copyright (c) Facebook, Inc. and its affiliates.
 
@@ -52,6 +94,12 @@ Copyright (c) 2022 WorkOS
 Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
 
 Copyright (c) 2021 Dany Castillo
+
+Copyright (c) 2017 Matt DesLauriers
+
+Copyright (c) 2013 Nenad Markus (pico and facefinder)
+
+Copyright (c) Nenad Markus (pico.js)
 
 Copyright (c) 2019-present, VoidZero Inc. and Vite contributors
 
@@ -101,4 +149,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ## YouScroll's own license
 
-YouScroll is licensed under the Apache License 2.0. See [LICENSE](LICENSE).
+YouScroll is licensed under the Apache License 2.0. The complete license is
+included as `LICENSE` in the distributed extension.

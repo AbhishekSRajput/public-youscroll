@@ -1,83 +1,108 @@
-![YouScroll pins the YouTube comments beside the video in a panel that scrolls on its own](store-assets/large-promo-1400x560.png)
+![YouScroll keeps YouTube controls and creative tools beside the video](store-assets/large-promo-1400x560.png)
 
 # YouScroll
 
-YouScroll (listed in extension stores as **YouScroll: Pinned Comments for
-YouTube**) is a Chrome extension that changes the layout of the YouTube watch
-page. YouTube puts the comments below the player, in the same scroll as
-everything else, so reading them pushes the video off the top of the screen.
-YouScroll moves the comments into the right-hand column as a full-height panel
-that scrolls on its own, and leaves the player where it is.
+YouScroll (listed in extension stores as **YouScroll — Scroll Comments & Up
+Next Independently**) improves the YouTube watch page while keeping the video
+in view. Comments and recommendations share a full-height panel beside the
+player and scroll independently. A local Video playground adds doodles, GIFs,
+animated throws and face-following effects over the current video.
 
-It is local-first and deliberately narrow. There is no YouScroll account, no
-analytics service, no advertising SDK, and no developer-operated server. The
-extension makes no network requests of its own and contains no remote code.
-The only thing it stores is a small settings object: which features are
-switched on, and which tab the panel opens on. See [PRIVACY.md](PRIVACY.md)
-for the complete privacy policy.
+It is local-first. There is no YouScroll account, analytics service,
+advertising SDK or developer-operated data server. The available features make
+no network requests and contain no remote code. Settings use Chrome sync;
+user-selected GIFs may be saved separately in this browser's local extension
+storage. See [PRIVACY.md](PRIVACY.md) for the complete storage and local video
+processing details.
 
-This repository hosts YouScroll's public privacy policy, third-party notices,
+This repository hosts YouScroll's public privacy policy, third-party notices
 and store listing assets. It does not contain the extension's source code.
 
 ## Features
 
-- Move the comments into the right-hand column as a sticky, full-height pane
-  that scrolls independently of the page.
-- Switch between Comments and Up Next with a tab bar, so the recommendations
-  are moved rather than replaced, and choose which one opens first.
-- Keep YouTube's own lazy loading working inside the panel: scrolling to the
-  bottom loads the next page of comments exactly as it would normally.
-- Pop the video out into your browser's Picture-in-Picture window from a
-  button in YouTube's own control bar, so it floats above your other
-  applications.
-- Toggle either feature from the toolbar popup and have it take effect
-  immediately in tabs that are already open, without a reload.
+- 📌 Scroll Comments and Up Next in separate panes without moving the player.
+  Choose which pane opens first, keep YouTube's own comment loading working as
+  you reach the bottom, and avoid a second visible scrollbar gutter.
+- 🎨 Open the Video playground directly in Doodle, with a pen, eraser, six colors,
+  adjustable size, Undo and Clear all.
+- 🎞️ Import local GIFs, drag them over the video and change their size. Up to four
+  can play together. Lossless local optimization preserves pixels, resolution,
+  frames, timing and transparency, and keeps an already optimized original.
+- 💾 Reuse files from Saved GIFs after reloading or delete them individually. The
+  library holds up to 12 files and 6 MiB of encoded GIF data. A valid file that
+  does not fit still works on the current video.
+- 📐 Import GIFs up to 64 MiB and 8 million pixels per frame at their original
+  resolution within those practical limits. There is no frame-count or
+  animation-duration cutoff.
+- 🍅 Throw tomatoes, eggs, slime, confetti, flowers, hearts, stars or snowballs
+  with flight arcs, squash and particle bursts that respect reduced-motion
+  preferences.
+- 😎 Add a moustache, horns, hair, hero mask, pirate patch, red charging Laser
+  Eyes or a Super Saiyan power-up with the same red eye glow and a golden body
+  aura. Local face landmarks follow position and rotation.
+- 🖼️ Import a local PNG, JPEG or WebP as a custom face image, with size and
+  placement controls.
+- 🪟 Open the current video in the browser's Picture-in-Picture window from a
+  button in the player controls.
+- ⚡ Toggle each feature from the toolbar popup and apply the change immediately
+  in tabs that are already open.
 
-YouScroll steps aside rather than fighting the page. In theater mode, in
-fullscreen, and on windows too narrow for YouTube's own two-column layout, the
-panel stands down and you get stock YouTube instead of a half-applied layout.
+The right-column panel steps aside in theater mode, fullscreen, live chat and
+windows too narrow for YouTube's two-column layout. The Play entry remains in
+the player controls where supported. Artwork survives same-video mode changes,
+and every borrowed page element returns to its original place when a feature
+is disabled or the user navigates away.
 
-Every change the extension makes to the page carries its own undo, and
-switching a feature off restores YouTube's layout exactly as it was.
+Face tracking starts only after a face sticker is selected. The bundled model
+temporarily processes sampled video pixels on the device; it does not identify
+people, upload frames or save face geometry. Tracking may be interrupted by
+profiles, occlusion, quick cuts or a video that prevents pixel reads.
 
 ## Where it runs
 
-YouScroll runs on `https://www.youtube.com` and nowhere else. It requests no
-access to any other site, to your other tabs, or to your browsing history. The
-build fails if a host pattern in the manifest ever escapes that scope, so it
-cannot widen by accident.
+Granted host access is limited to `https://www.youtube.com/*`. YouScroll
+requests no access to other sites, other tabs or browsing history. The manifest
+retains one optional `http://localhost/*` permission for a deferred Watch
+Together prototype. Version 1.0.0 does not expose that feature, request the
+permission or connect to a relay.
 
 ## Storage and permissions
 
-- `chrome.storage.sync` stores one settings object: the on/off state of each
-  feature and the preferred default tab. Nothing else is stored. If you are
-  signed into Chrome, that object syncs between your own browsers through
-  Chrome's own sync, the same way any extension setting does.
-- Host access to `https://www.youtube.com/*` lets the content script move
-  YouTube's own comments and recommendations containers into the panel, and
-  put them back when a feature is switched off.
-- YouScroll reads one piece of text from the page: the comment count, which it
-  shows on the tab label of the panel it just built. It is not stored and does
-  not leave the page.
-- The panel and the pop-out button are ordinary elements in the page, so
-  scripts running on that page can see them, exactly as they can see the rest
-  of the page. YouScroll adds no isolation and removes none.
-- There is no background service worker, no `tabs` permission, no `scripting`
-  permission, and no optional permissions.
+- `chrome.storage.sync` stores one settings object with feature toggles and the
+  preferred panel tab. Chrome may sync it between the user's own signed-in
+  browsers; the developer receives no copy.
+- `chrome.storage.local` stores only GIF files the user explicitly imports and
+  that fit Saved GIFs, plus byte length, a format version and a content hash for
+  duplicate detection. Filenames, video identifiers, placements and watch
+  history are not stored. Saved GIFs remain on the current browser profile and
+  never sync or upload.
+- Access to `https://www.youtube.com/*` lets the content script rearrange the
+  watch-page layout, add controls and draw extension-owned overlays. A selected
+  face sticker temporarily samples the current video's pixels for local
+  landmark detection.
+- Doodles, throws, on-screen GIF placements, imported face images, sampled
+  frames and face geometry remain in tab memory. They are not written to
+  storage or transmitted.
+- YouScroll requests no `tabs`, `scripting`, `webRequest`, `history`, `cookies`
+  or `<all_urls>` permission and has no background service worker.
+
+No comment text, video title, channel name, search query or watch history is
+read, logged, stored or transmitted. Extension controls are ordinary elements
+in the page, so scripts on that page can see them just as they can see the rest
+of the page.
 
 ## Documentation
 
 - [Support and issue reporting](ISSUES.md)
 - [Privacy policy](PRIVACY.md)
 - [Third-party notices](THIRD_PARTY_NOTICES.md)
-- [License](LICENSE)
 
 ## Contact
 
-Questions, privacy requests, and support: <codecube99@gmail.com>
+Questions, privacy requests and support: <codecube99@gmail.com>
 
 ## License
 
-YouScroll is licensed under the Apache License 2.0. See [LICENSE](LICENSE).
-Third-party components retain their own licenses as listed in
+YouScroll is licensed under the Apache License 2.0. Third-party components
+retain their own licenses as listed in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

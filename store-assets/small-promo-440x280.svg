@@ -50,7 +50,7 @@
   <text x="220" y="205" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
         font-size="38" font-weight="700" letter-spacing="-0.8" fill="#FFFFFF">YouScroll</text>
   <text x="220" y="234" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
-        font-size="15" fill="#A9B0BC">Comments beside the video, not below it</text>
+        font-size="15" fill="#A9B0BC">Scroll. Doodle. React. Keep watching.</text>
 
   <rect x="188" y="250" width="64" height="3" rx="1.5" fill="#FF2D46"/>
 </svg>

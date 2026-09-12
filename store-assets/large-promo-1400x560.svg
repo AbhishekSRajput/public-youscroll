@@ -90,15 +90,15 @@
         font-weight="700" letter-spacing="-2" fill="#FFFFFF">YouScroll</text>
   <rect x="838" y="238" width="86" height="5" rx="2.5" fill="#FF2D46"/>
   <text x="836" y="288" font-family="Segoe UI, Arial, sans-serif" font-size="27" fill="#C6CCD6">
-    Comments beside the video, not below it.
+    Keep the video in view. Add a little mischief.
   </text>
 
   <g font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#98A0AD">
     <rect x="838" y="330" width="10" height="10" rx="3" fill="#FF2D46"/>
-    <text x="866" y="340">A full-height panel that scrolls on its own</text>
+    <text x="866" y="340">Independent Comments and Up Next</text>
     <rect x="838" y="374" width="10" height="10" rx="3" fill="#FF2D46"/>
-    <text x="866" y="384">Comments and Up Next, one click apart</text>
+    <text x="866" y="384">Doodle, GIFs, throws and face effects</text>
     <rect x="838" y="418" width="10" height="10" rx="3" fill="#FF2D46"/>
-    <text x="866" y="428">No account, no analytics, no network requests</text>
+    <text x="866" y="428">Local-first, with no account or analytics</text>
   </g>
 </svg>
