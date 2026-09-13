@@ -34,6 +34,13 @@ project under the MIT License and the same copyright notice reproduced below.
 `gifenc` runs only after a user chooses a GIF. It re-encodes the file locally
 when that can produce a smaller lossless result; no media is sent away.
 
+## Project assets
+
+The bundled GIFs in `playground/` (`heart-kiss`, `blushing-cat`,
+`confused-cat`, `math-cat`, `side-eye-kid`, `ew-dog`, `bleh-cat`,
+`yes-sir-cat`, `husky-dance` and `battle-cat`) were supplied by the project
+owner for inclusion as the Video Playground's built-in GIFs.
+
 ## Local face detection and model
 
 The primary detector uses `@mediapipe/tasks-vision` 0.10.32, copyright Google

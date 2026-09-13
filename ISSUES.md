@@ -45,7 +45,7 @@ have it.
 - Clear steps to reproduce the problem.
 - What you expected and what happened instead.
 - Whether the problem affects the comments panel, the tab bar, the pop-out
-  button, or the settings popup.
+  button, the Video playground, or the settings popup.
 - Any `[YouScroll]` line from the browser console.
 - Your window size, if the problem looks like a layout one.
 

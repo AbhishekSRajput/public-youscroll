@@ -118,6 +118,10 @@ and removed with Undo or Clear all.
 
 ### GIF import and optimization
 
+The GIFs tab also offers ten GIFs packaged with the extension. Adding one
+places it on the current video; it is not optimized, saved to the Saved GIFs
+library or fetched from any service.
+
 GIF import accepts files up to 64 MiB and 8 Mi pixels per frame, including
 3840 by 2160. It has no 160-frame or 30-second animation cutoff. Local lossless
 optimization preserves pixels, dimensions, frames, delays and transparency;

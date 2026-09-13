@@ -2,8 +2,8 @@
 
 # YouScroll
 
-YouScroll (listed in extension stores as **YouScroll — Scroll Comments & Up
-Next Independently**) improves the YouTube watch page while keeping the video
+YouScroll (listed in extension stores as **YouScroll — Scroll Comments,
+Doodle, GIFs & Face Effects**) improves the YouTube watch page while keeping the video
 in view. Comments and recommendations share a full-height panel beside the
 player and scroll independently. A local Video playground adds doodles, GIFs,
 animated throws and face-following effects over the current video.
@@ -24,9 +24,9 @@ and store listing assets. It does not contain the extension's source code.
   Choose which pane opens first, keep YouTube's own comment loading working as
   you reach the bottom, and avoid a second visible scrollbar gutter.
 - 🎨 Open the Video playground directly in Doodle, with a pen, eraser, six colors,
-  adjustable size, Undo and Clear all.
-- 🎞️ Import local GIFs, drag them over the video and change their size. Up to four
-  can play together. Lossless local optimization preserves pixels, resolution,
+  adjustable size, Undo (Ctrl+Z) and Clear all.
+- 🎞️ Add one of ten included reaction GIFs, or import local GIFs, drag them over
+  the video and change their size. Up to four can play together. Lossless local optimization preserves pixels, resolution,
   frames, timing and transparency, and keeps an already optimized original.
 - 💾 Reuse files from Saved GIFs after reloading or delete them individually. The
   library holds up to 12 files and 6 MiB of encoded GIF data. A valid file that
